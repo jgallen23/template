@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       main: [
         'grunt.js',
         'component.json',
-        'lib/*.js',
+        //'lib/*.js',
         'test/*.js'
       ]
     },
@@ -38,12 +38,17 @@ module.exports = function(grunt) {
     },
     watch: {
       main: {
-        files: '<config:lint.all>',
+        files: [
+          '<config:lint.main>',
+          'lib/*',
+          'example/*'
+        ],
         tasks: 'default'
       },
       ci: {
         files: [
           '<config:lint.main>',
+          'lib/*',
           'test/index.html'
         ],
         tasks: 'default mocha'
