@@ -1,6 +1,6 @@
 /*!
  * template - A simple javascript template engine.
- * v0.1.0
+ * v0.1.1
  * https://github.com/jgallen23/template
  * copyright Greg Allen 2013
  * MIT License
