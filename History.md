@@ -1,4 +1,12 @@
 
+0.2.0 / 2013-05-24 
+==================
+
+  * [lib|test] added options.openTag|closeTag for custom template tags
+  * [lib] added noConflict
+  * [grunt] allow jshint
+  * [grunt|bower] updated to use new version of grunt and renamed component to bower.json
+
 0.1.1 / 2013-01-17 
 ==================
 

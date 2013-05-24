@@ -1,19 +1,24 @@
 /*!
  * template - A simple javascript template engine.
- * v0.1.1
+ * v0.2.0
  * https://github.com/jgallen23/template
  * copyright Greg Allen 2013
  * MIT License
 */
-
 //template.js
 //modified version of john resig's micro templating
 //http://ejohn.org/blog/javascript-micro-templating/
 
-(function(){
+(function(w){
+  var oldRef = w.template;
   var cache = {};
-  
-  this.template = function tmpl(str, data){
+
+  opts = {
+    openTag: '<%',
+    closeTag: '%>'
+  };
+
+  var template = function tmpl(str, data){
     // Figure out if we're getting a template, or if we need to
     // load the template - and be sure to cache the result.
     var fn = !/\W/.test(str) ?
@@ -31,16 +36,23 @@
         // Convert the template into pure JavaScript
         str
           .replace(/[\r\t\n]/g, " ")
-          .split("<%").join("\t")
-          .replace(/((^|%>)[^\t]*)'/g, "$1\r")
-          .replace(/\t=(.*?)%>/g, "',$1,'")
+          .split(opts.openTag).join("\t")
+          .replace(new RegExp("((^|"+opts.closeTag+")[^\t]*)'", 'g'), "$1\r")
+          .replace(new RegExp("\t=(.*?)"+opts.closeTag, 'g'), "',$1,'")
           .split("\t").join("');")
-          .split("%>").join("p.push('")
-          .split("\r").join("\\'")
-      + "');}return p.join('');");
+          .split(opts.closeTag).join("p.push('")
+          .split("\r").join("\\'") + "');}return p.join('');");
 
     // Provide some basic currying to the user
     return data ? fn( data ) : fn;
   };
-})();
+
+  template.options = opts;
+  template.noConflict = function() {
+    w.template = oldRef;
+    return template;
+  };
+
+  w.template = template;
+})(window);
 
