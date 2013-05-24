@@ -11,10 +11,13 @@ module.exports = function(grunt) {
               '*/\n'
     },
     jshint: {
+      options: {
+        evil: true
+      }, 
       main: [
         'Gruntfile.js', 
         'bower.json',
-        //'lib/**/*.js',
+        'lib/**/*.js',
         'test/*.js'
       ]
     },
