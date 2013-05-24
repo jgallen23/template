@@ -26,6 +26,23 @@ suite('template', function() {
   test('noConflict', function() {
     var t = template.noConflict();
     assert.equal(typeof template, 'undefined');
+    //adding back for other tests
+    window.template = t;
   });
 
+  test('custom open/close tags', function() {
+    template.options.openTag = '{{';
+    template.options.closeTag = '}}';
+    var out = template('{{= name }}', { name: 'Bob' });
+    assert.equal(out, 'Bob');
+  });
+
+  test('custom tags with if statement', function() {
+    template.options.openTag = '{{';
+    template.options.closeTag = '}}';
+    var out = template('{{ if (test) { }}{{= name }}{{ } }}', { test: true, name: 'Bob' });
+    assert.equal(out, 'Bob');
+    out = template('{{ if (test) { }}{{= name }}{{ } }}', { test: false, name: 'Bob' });
+    assert.equal(out, '');
+  });
 });
