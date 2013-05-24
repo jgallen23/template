@@ -23,4 +23,9 @@ suite('template', function() {
     assert.equal(out, 'Bob, Jane, ');
   });
 
+  test('noConflict', function() {
+    var t = template.noConflict();
+    assert.equal(typeof template, 'undefined');
+  });
+
 });
